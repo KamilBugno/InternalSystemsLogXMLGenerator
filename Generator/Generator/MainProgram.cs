@@ -13,7 +13,6 @@ namespace Generator
         {
             Generator generator = new Generator();
             generator.Generate();
-            Console.ReadKey();
         }
     }
 }

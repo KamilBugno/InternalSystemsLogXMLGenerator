@@ -8,9 +8,13 @@ namespace Generator
 {
     static class ConstantData
     {
+        public static string fileName = "10-xml.xml";
         public static int startKey = 1;
+        public static int numberOfRecords = 10;
         public static string system_key = "1";
         public static string person_key = "1";
+        public static int year = 2018;
+        public static int month = 1;
         public static string[] action_type = {"successful login", "login failed", "change password", "change email", "logout" };
         public static string[] browser = {"Chrome", "Firefox", "Internet Explorer", "Safari", "Opera"};
         public static string[] chromeVersion = { "64.0.3282.119", "64.0.3282.123", "64.0.3282.112" };

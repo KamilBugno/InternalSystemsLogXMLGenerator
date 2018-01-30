@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,29 +11,52 @@ namespace Generator
     {
         XmlCreator xmlCreator;
         Random random;
+        FileWriter fileWriter;
 
         public Generator()
         {
             xmlCreator = new XmlCreator();
             random = new Random();
+            fileWriter = new FileWriter();
         }
 
         public void Generate()
         {
-            var browser = GenerateBrowser();
-            var xml = xmlCreator.CreateXml(ConstantData.startKey, ConstantData.system_key, ConstantData.person_key, GenerateIp(),
-                browser, GenerateBrowserVersion(browser), GenerateActionType(), GenerateCreatedAt());
-            Console.WriteLine(xml);
+            for(int entityId = ConstantData.startKey; entityId < ConstantData.numberOfRecords; entityId++)
+            {
+                var browser = GenerateBrowser();
+                var xml = xmlCreator.CreateXml(ConstantData.startKey, ConstantData.system_key, ConstantData.person_key, GenerateIp(),
+                    browser, GenerateBrowserVersion(browser), GenerateActionType(), DateToString(GenerateCreatedAt()));
+
+                fileWriter.WriteToFile(xml);
+
+                ConstantData.startKey++;
+            }
+            
         }
 
-        public string GenerateCreatedAt()
+        public DateTime GenerateCreatedAt()
         {
-            return String.Empty;
+            var year = ConstantData.year;
+            var month = ConstantData.month;
+            var day = random.Next(1, DateTime.DaysInMonth(year, month) + 1);
+            var hour = random.Next(0, 24);
+            var minute = random.Next(0, 60);
+            var second = random.Next(0, 60);
+            return new DateTime(year, month, day, hour, minute, second);
+        }
+
+        public string DateToString(DateTime date)
+        {
+            return date.ToString("yyyy-MM-ddTHH:mm:ss.000");
         }
 
         public string GenerateIp()
         {
-            return String.Empty;
+            var data = new byte[4];
+            random.NextBytes(data);
+            IPAddress ip = new IPAddress(data);
+            return ip.ToString();
         }
 
         public string GenerateBrowser()
