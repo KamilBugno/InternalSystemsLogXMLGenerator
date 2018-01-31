@@ -22,7 +22,7 @@ namespace Generator
 
         public void Generate()
         {
-            for(int entityId = ConstantData.startKey; entityId < ConstantData.numberOfRecords; entityId++)
+            for(int entityId = ConstantData.startKey; entityId <= ConstantData.numberOfRecords; entityId++)
             {
                 var browser = GenerateBrowser();
                 var xml = xmlCreator.CreateXml(ConstantData.startKey, ConstantData.system_key, ConstantData.person_key, GenerateIp(),

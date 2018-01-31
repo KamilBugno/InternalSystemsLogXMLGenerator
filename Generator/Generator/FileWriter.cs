@@ -10,10 +10,12 @@ namespace Generator
 {
     class FileWriter
     {
+        private string tag = "!#!";
+
         public void WriteToFile(XDocument xml)
         {
             File.AppendAllText(ConstantData.fileName, xml.ToString());
-            File.AppendAllText(ConstantData.fileName, Environment.NewLine);
+            File.AppendAllText(ConstantData.fileName, Environment.NewLine + tag + Environment.NewLine);
         }
     }
 }
